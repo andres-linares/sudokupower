@@ -48,6 +48,8 @@ export class Board {
 
     for (let i = row - 1; i <= row + 1; i++) {
       for (let j = column - 1; j <= column + 1; j++) {
+        if (!cells[i]) break;
+
         around.push(cells[i][j]);
       }
     }
