@@ -8,7 +8,7 @@ describe('randomIntInRange', () => {
     }
   });
 
-  it.only('should have a uniform distribution', () => {
+  it('should have a uniform distribution', () => {
     const values = [];
     for (let i = 0; i < 100; i++) {
       values.push(0);
@@ -36,10 +36,12 @@ describe('pick', () => {
 
     for (let i = 0; i < 100; i++) {
       array.push(i);
+      values.push(0);
     }
 
     for (let i = 0; i < TRIES; i++) {
-      values[Random.pick(array)]++;
+      const randomIndex = Random.pick(array);
+      values[randomIndex]++;
     }
 
     const distribution = values.map((value) => value / TRIES);
