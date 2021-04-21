@@ -1,7 +1,7 @@
-import { Cell } from "../src/Cell";
+import { Cell } from '../src/Cell';
 
-describe("Value", () => {
-  it("should only set values from 1 to 9 or null on constructor, otherwise set null", () => {
+describe('Value', () => {
+  it('should only set values from 1 to 9 or null on constructor, otherwise set null', () => {
     expect(new Cell(1).value).toEqual(1);
     expect(new Cell(5).value).toEqual(5);
     expect(new Cell(9).value).toEqual(9);
@@ -13,7 +13,7 @@ describe("Value", () => {
     expect(new Cell(69).value).toEqual(null);
   });
 
-  it("should only set values from 1 to 9 or null on setter, otherwise set null", () => {
+  it('should only set values from 1 to 9 or null on setter, otherwise set null', () => {
     let cell = new Cell(null);
     cell.value = 1;
     expect(cell.value).toEqual(1);
@@ -35,12 +35,12 @@ describe("Value", () => {
   });
 });
 
-describe("Marks", () => {
-  it("should not have marks initially", () => {
+describe('Marks', () => {
+  it('should not have marks initially', () => {
     expect(new Cell().marks).toEqual([]);
   });
 
-  it("should add only valid marks", () => {
+  it('should add only valid marks', () => {
     const cell = new Cell();
 
     cell.addMark(2);
@@ -59,20 +59,20 @@ describe("Marks", () => {
     expect(cell.marks).toEqual([2, 7, 3]);
   });
 
-  it("should not repeat marks", () => {
+  it('should not repeat marks', () => {
     const cell = new Cell();
     cell.addMark(1);
     cell.addMark(1);
     expect(cell.marks).toEqual([1]);
   });
 
-  it("should not add marks to a cell that has a value", () => {
+  it('should not add marks to a cell that has a value', () => {
     const cell = new Cell(1);
     cell.addMark(1);
     expect(cell.marks).toEqual([]);
   });
 
-  it("should erase the marks after a value is set", () => {
+  it('should erase the marks after a value is set', () => {
     const cell = new Cell();
     cell.addMark(1);
     cell.value = 1;
@@ -80,19 +80,19 @@ describe("Marks", () => {
   });
 });
 
-describe("Manipulated", () => {
-  it("should not be manipulated when value is set from constructor", () => {
+describe('Manipulated', () => {
+  it('should not be manipulated when value is set from constructor', () => {
     expect(new Cell().manipulated).toEqual(false);
     expect(new Cell(1).manipulated).toEqual(false);
   });
 
-  it("should be manipulated when value is set from setter", () => {
+  it('should be manipulated when value is set from setter', () => {
     const cell = new Cell();
     cell.value = 2;
     expect(cell.manipulated).toEqual(true);
   });
 
-  it("should be possible to reset manipulation", () => {
+  it('should be possible to reset manipulation', () => {
     const cell = new Cell();
     cell.value = 2;
     cell.resetManipulation();
