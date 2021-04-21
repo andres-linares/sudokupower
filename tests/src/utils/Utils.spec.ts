@@ -1,7 +1,7 @@
 import { Utils } from '../../../src/utils/Utils';
 
 describe('intersection', () => {
-  it('should return the insection between 2 arrays', () => {
+  it('should return the intersection between 2 arrays', () => {
     let array1 = [1, 2, 3];
     let array2 = [3, 4, 5];
     expect(Utils.intersection(array1, array2)).toEqual([3]);
@@ -19,7 +19,7 @@ describe('intersection', () => {
     expect(Utils.intersection([1, 2, 3])).toEqual([1, 2, 3]);
   });
 
-  it('should return the interception among multiple arrays', () => {
+  it('should return the intersection among multiple arrays', () => {
     let array1 = [1, 2, 3, 4, 5];
     let array2 = [1, 7];
     let array3 = [1, 9];
