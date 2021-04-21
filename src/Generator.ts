@@ -1,5 +1,7 @@
 import { Cell } from './Cell';
+import { Board } from './utils/Board';
 import { Random } from './utils/Random';
+import { Utils } from './utils/Utils';
 
 export class Generator {
   private difficulty: difficulty;
@@ -17,17 +19,23 @@ export class Generator {
 
   generateSolvedGame(): Cell[][] {
     for (let row = 0; row < 9; row++) {
-      const rowOfCells = [];
-      let availables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      this.cells.push([]);
 
       for (let column = 0; column < 9; column++) {
+        const freeInRow = Board.freeInRow(row, this.cells);
+        const freeInColumn = Board.freeInColumn(column, this.cells);
+        const availables = Utils.intersection(freeInColumn, freeInRow);
+
         const value = Random.pick(availables);
-        rowOfCells.push(new Cell(value));
+        if (!value) {
+          this.cells = this.cells.splice(0, row);
+          row--;
 
-        availables = availables.filter((number) => number !== value);
+          break;
+        }
+
+        this.cells[row].push(new Cell(value));
       }
-
-      this.cells.push(rowOfCells);
     }
 
     return this.cells;

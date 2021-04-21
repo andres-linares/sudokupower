@@ -16,6 +16,5 @@ it('should generate cells where each digit is repeated 9 times exactly', () => {
   result.forEach((row) =>
     row.forEach((cell) => counts[cell.value ? cell.value - 1 : 0]++)
   );
-  console.log(counts);
   expect(counts.every((count) => count === 9)).toEqual(true);
 });
