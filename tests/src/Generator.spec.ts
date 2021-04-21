@@ -16,3 +16,5 @@ it('should generate cells where each digit is repeated 9 times exactly', () => {
   result.forEach((row) => row.forEach((cell) => cell.value && counts[cell.value - 1]++));
   expect(counts.every((count) => count === 9)).toEqual(true);
 });
+
+it('should generate a valid solved board', () => {});
