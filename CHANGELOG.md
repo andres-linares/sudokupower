@@ -9,4 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Cell class to store value, pencil marks, error status and manipulations
+- Cell class to store value, pencil marks, error status and manipulations.
+- Random class with common functionalities.
+- Utils class with common functionalities.
