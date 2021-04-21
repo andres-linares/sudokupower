@@ -5,4 +5,10 @@ export class Random {
 
     return randomValue;
   }
+
+  static pick<T>(array: T[]): T {
+    const randomIndex = this.intInRange(0, array.length - 1);
+
+    return array[randomIndex];
+  }
 }

@@ -27,3 +27,24 @@ describe('randomIntInRange', () => {
     );
   });
 });
+
+describe('pick', () => {
+  it('should return a random value from an array', () => {
+    const TRIES = 10_000;
+    const array: number[] = [];
+    const values: number[] = [];
+
+    for (let i = 0; i < 100; i++) {
+      array.push(i);
+    }
+
+    for (let i = 0; i < TRIES; i++) {
+      values[Random.pick(array)]++;
+    }
+
+    const distribution = values.map((value) => value / TRIES);
+    expect(distribution.every((value) => value >= 0.0065 && value <= 0.0135)).toEqual(
+      true
+    );
+  });
+});
