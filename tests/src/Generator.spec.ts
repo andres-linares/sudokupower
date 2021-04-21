@@ -1,4 +1,4 @@
-import { Generator } from '../src/Generator';
+import { Generator } from '../../src/Generator';
 
 it('should generate an array of arrays of 9x9 cells', () => {
   const generator = new Generator();

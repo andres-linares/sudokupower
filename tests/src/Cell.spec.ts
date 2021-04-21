@@ -1,4 +1,4 @@
-import { Cell } from '../src/Cell';
+import { Cell } from '../../src/Cell';
 
 describe('Value', () => {
   it('should only set values from 1 to 9 or null on constructor, otherwise set null', () => {

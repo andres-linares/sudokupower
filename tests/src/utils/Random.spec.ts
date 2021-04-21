@@ -1,4 +1,4 @@
-import { Random } from '../../src/utils/Random';
+import { Random } from '../../../src/utils/Random';
 
 describe('randomIntInRange', () => {
   it('should generate values inside the range inclusive', () => {
