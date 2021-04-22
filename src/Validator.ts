@@ -7,5 +7,7 @@ export class Validator {
     this.cells = cells;
   }
 
-  isValid() {}
+  isValid(): boolean {
+    return true;
+  }
 }

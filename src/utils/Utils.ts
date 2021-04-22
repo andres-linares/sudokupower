@@ -1,5 +1,5 @@
 export class Utils {
-  static intersection<T>(array1: T[], ...arrays: T[][]) {
+  static intersection<T>(array1: T[], ...arrays: T[][]): T[] {
     if (arrays.length === 0) return array1;
 
     let intersected = array1;

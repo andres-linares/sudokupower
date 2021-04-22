@@ -1,6 +1,5 @@
 import { Cell } from './Cell';
 import { Board } from './utils/Board';
-import { Logger } from './utils/Logger';
 import { Random } from './utils/Random';
 import { Utils } from './utils/Utils';
 

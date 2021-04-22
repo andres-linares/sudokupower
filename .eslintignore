@@ -1,0 +1,4 @@
+# module.exports syntax
+jest.config.js
+commitlint.config.js
+.eslintrc.js

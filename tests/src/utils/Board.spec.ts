@@ -91,12 +91,12 @@ describe('freeInColumn', () => {
 
 describe('freeInQuadrant', () => {
   it('should return all numbers when quadrant is empty', () => {
-    let cells: Cell[][] = [
+    const cells: Cell[][] = [
       [C(), C(), C()],
       [C(), C(), C()],
       [C(), C(), C()],
     ];
-    let result = Board.freeInQuadrant(0, 0, cells);
+    const result = Board.freeInQuadrant(0, 0, cells);
     expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
 

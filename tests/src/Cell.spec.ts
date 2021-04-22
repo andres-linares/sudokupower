@@ -14,7 +14,7 @@ describe('Value', () => {
   });
 
   it('should only set values from 1 to 9 or null on setter, otherwise set null', () => {
-    let cell = new Cell(null);
+    const cell = new Cell(null);
     cell.value = 1;
     expect(cell.value).toEqual(1);
     cell.value = 5;
