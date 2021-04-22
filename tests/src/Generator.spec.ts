@@ -1,4 +1,5 @@
 import { Generator } from '../../src/Generator';
+import { Validator } from '../../src/Validator';
 
 it('should generate an array of arrays of 9x9 cells', () => {
   const generator = new Generator();
@@ -17,4 +18,10 @@ it('should generate cells where each digit is repeated 9 times exactly', () => {
   expect(counts.every((count) => count === 9)).toEqual(true);
 });
 
-it('should generate a valid solved board', () => {});
+it('should generate a valid solved board', () => {
+  const generator = new Generator();
+  const result = generator.generateSolvedGame();
+
+  const validator = new Validator(result);
+  expect(validator.isValid()).toEqual(true);
+});
