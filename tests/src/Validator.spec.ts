@@ -3,8 +3,8 @@ import mediumGames from '../fixtures/medium.json';
 import hardGames from '../fixtures/hard.json';
 import expertGames from '../fixtures/expert.json';
 import invalidGames from '../fixtures/invalid.json';
-import { Cell } from '../../src/Cell';
 import { Validator } from '../../src/Validator';
+import { arrayToCells } from '../../src/io';
 
 it('should return valid for all valid boards', () => {
   const allGames = [
@@ -16,8 +16,8 @@ it('should return valid for all valid boards', () => {
 
   allGames.forEach((game) => {
     const { start, finish } = game;
-    const startGame = transformGameFixtureToCells(start);
-    const finishGame = transformGameFixtureToCells(finish);
+    const startGame = arrayToCells(start);
+    const finishGame = arrayToCells(finish);
 
     const startValidator = new Validator(startGame);
     const finishValidator = new Validator(finishGame);
@@ -35,8 +35,8 @@ it('should return invalid for all invalid boards', () => {
 
   allGames.forEach((game) => {
     const { start, finish } = game;
-    const startGame = transformGameFixtureToCells(start);
-    const finishGame = transformGameFixtureToCells(finish);
+    const startGame = arrayToCells(start);
+    const finishGame = arrayToCells(finish);
 
     const startValidator = new Validator(startGame);
     const finishValidator = new Validator(finishGame);
@@ -48,22 +48,3 @@ it('should return invalid for all invalid boards', () => {
     expect(validFinishGame).toEqual(false);
   });
 });
-
-function transformGameFixtureToCells(game: number[][]): Cell[][] {
-  const cells: Cell[][] = [];
-
-  for (let row = 0; row < 9; row++) {
-    const rowOfCells: Cell[] = [];
-
-    for (let column = 0; column < 9; column++) {
-      const value = game[row][column];
-      const cell = new Cell(value === 0 ? null : value);
-
-      rowOfCells.push(cell);
-    }
-
-    cells.push(rowOfCells);
-  }
-
-  return cells;
-}
