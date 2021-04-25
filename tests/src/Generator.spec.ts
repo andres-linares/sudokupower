@@ -1,4 +1,5 @@
 import { Generator } from '../../src/Generator';
+import { Solver } from '../../src/Solver';
 import { Validator } from '../../src/Validator';
 
 it('should generate an array of arrays of 9x9 cells', () => {
@@ -117,4 +118,36 @@ describe('difficulty', () => {
     const percentage = freeCells / totalCells;
     expect(percentage).toBeGreaterThanOrEqual(0.6);
   });
+});
+
+it('should generate a winnable easy game', () => {
+  const generator = new Generator('EASY');
+  const result = generator.generate();
+
+  const solver = new Solver(result);
+  expect(solver.isSolvable()).toEqual(true);
+});
+
+it('should generate a winnable medium game', () => {
+  const generator = new Generator('MEDIUM');
+  const result = generator.generate();
+
+  const solver = new Solver(result);
+  expect(solver.isSolvable()).toEqual(true);
+});
+
+it('should generate a winnable hard game', () => {
+  const generator = new Generator('HARD');
+  const result = generator.generate();
+
+  const solver = new Solver(result);
+  expect(solver.isSolvable()).toEqual(true);
+});
+
+it('should generate a winnable expert game', () => {
+  const generator = new Generator('EXPERT');
+  const result = generator.generate();
+
+  const solver = new Solver(result);
+  expect(solver.isSolvable()).toEqual(true);
 });

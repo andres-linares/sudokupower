@@ -1,6 +1,7 @@
 import { Cell } from './Cell';
 import { FREE_CELLS_PERCENTAGE_BY_DIFFICULTY } from './constants';
 import { Difficulty } from './interfaces';
+import { Solver } from './Solver';
 import { Board } from './utils/Board';
 import { Random } from './utils/Random';
 import { Utils } from './utils/Utils';
@@ -65,14 +66,24 @@ export class Generator {
   }
 
   private transformIntoPlayableGame() {
+    const MAX_TRIES = 100;
+    let count = 0;
+
     while (!this.isValidFreeCellsAmount) {
       const randomRow = Random.pick(this.cells);
       const randomCell = Random.pick(randomRow);
       if (randomCell.value === null) continue;
 
+      const oldValue = randomCell.value;
       randomCell.value = null;
 
-      // Check game is winnable
+      const solver = new Solver(this.cells);
+      if (!solver.isSolvable()) {
+        randomCell.value = oldValue;
+        count++;
+      }
+
+      if (count > MAX_TRIES) break;
     }
   }
 
