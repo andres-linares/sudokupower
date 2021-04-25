@@ -4,6 +4,7 @@ export class Cell {
   private _manipulated = false;
 
   error = false;
+  possibilites: number[] = [];
 
   constructor(value: number | null = null) {
     this._value = this.isValidValue(value) ? value : null;
@@ -37,6 +38,7 @@ export class Cell {
     this._value = this.isValidValue(value) ? value : null;
     this._marks = [];
     this._manipulated = true;
+    this.possibilites = [];
   }
 
   private isValidValue(value: number | null): boolean {

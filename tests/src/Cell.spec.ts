@@ -99,3 +99,12 @@ describe('Manipulated', () => {
     expect(cell.manipulated).toEqual(false);
   });
 });
+
+it('removes possible values after a value is set', () => {
+  const cell = new Cell();
+  cell.possibilites = [1, 2, 3];
+  expect(cell.possibilites).toEqual([1, 2, 3]);
+
+  cell.value = 2;
+  expect(cell.possibilites).toEqual([]);
+});
