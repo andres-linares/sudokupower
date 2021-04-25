@@ -4,6 +4,7 @@
   "description": "Sudoku generator, solver and player",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "coverage": "jest --coverage --collectCoverageFrom=src/**/*.ts",
     "postinstall": "yarn husky install"
