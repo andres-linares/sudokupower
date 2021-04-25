@@ -4,7 +4,7 @@ import { cellsToArray } from '../../../src/io';
 const C = (x?: number) => new Cell(x);
 
 it('should transform a cells array to a number array', () => {
-  const row = [C(1), C(2), C(0), C(4)];
+  const row = [C(1), C(2), C(), C(4)];
   const cells = [row];
 
   const result = cellsToArray(cells);
