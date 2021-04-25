@@ -1,7 +1,6 @@
 import { Cell } from './Cell';
 import cloneDeep from 'lodash.clonedeep';
 import { Board } from './utils/Board';
-import { Logger } from './utils/Logger';
 import { Utils } from './utils/Utils';
 
 export class Solver {
