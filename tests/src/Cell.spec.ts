@@ -1,4 +1,4 @@
-import { Cell } from '../src/Cell';
+import { Cell } from '../../src/Cell';
 
 describe('Value', () => {
   it('should only set values from 1 to 9 or null on constructor, otherwise set null', () => {
@@ -14,7 +14,7 @@ describe('Value', () => {
   });
 
   it('should only set values from 1 to 9 or null on setter, otherwise set null', () => {
-    let cell = new Cell(null);
+    const cell = new Cell(null);
     cell.value = 1;
     expect(cell.value).toEqual(1);
     cell.value = 5;
@@ -98,4 +98,13 @@ describe('Manipulated', () => {
     cell.resetManipulation();
     expect(cell.manipulated).toEqual(false);
   });
+});
+
+it('removes possible values after a value is set', () => {
+  const cell = new Cell();
+  cell.possibilites = [1, 2, 3];
+  expect(cell.possibilites).toEqual([1, 2, 3]);
+
+  cell.value = 2;
+  expect(cell.possibilites).toEqual([]);
 });
