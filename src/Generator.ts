@@ -1,18 +1,21 @@
 import { Cell } from './Cell';
+import { FREE_CELLS_PERCENTAGE_BY_DIFFICULTY } from './constants';
+import { Difficulty } from './interfaces';
 import { Board } from './utils/Board';
 import { Random } from './utils/Random';
 import { Utils } from './utils/Utils';
 
 export class Generator {
-  private difficulty: difficulty;
+  private difficulty: Difficulty;
   private cells: Cell[][] = [];
 
-  constructor(difficulty: difficulty = 'EASY') {
+  constructor(difficulty: Difficulty = 'EASY') {
     this.difficulty = difficulty;
   }
 
   generate(): Cell[][] {
     this.generateSolvedGame();
+    this.transformIntoPlayableGame();
 
     return this.cells;
   }
@@ -60,6 +63,33 @@ export class Generator {
 
     return this.cells;
   }
-}
 
-export type difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EXPERT';
+  private transformIntoPlayableGame() {
+    while (!this.isValidFreeCellsAmount) {
+      const randomRow = Random.pick(this.cells);
+      const randomCell = Random.pick(randomRow);
+      if (randomCell.value === null) continue;
+
+      randomCell.value = null;
+
+      // Check game is winnable
+    }
+  }
+
+  private get isValidFreeCellsAmount(): boolean {
+    const requiredPercentage = FREE_CELLS_PERCENTAGE_BY_DIFFICULTY[this.difficulty];
+
+    return this.freeCellsPercentage >= requiredPercentage;
+  }
+
+  private get freeCellsPercentage(): number {
+    let totalFreeCells = 0;
+
+    this.cells.forEach((row) => {
+      const freeCells = row.filter((cell) => cell.value === null);
+      totalFreeCells += freeCells.length;
+    });
+
+    return totalFreeCells / 81;
+  }
+}
