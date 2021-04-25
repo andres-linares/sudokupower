@@ -21,10 +21,7 @@ export class Solver {
     while (!this.isSolved) {
       const anySolution = this.setAnyPossibleValue();
 
-      if (!anySolution) {
-        console.log('NOPE', Logger.logBoard(this.cells));
-        break;
-      }
+      if (!anySolution) break;
     }
   }
 
@@ -54,7 +51,6 @@ export class Solver {
       }
     }
 
-    // return false;
     return this.solveWithPossibleValues();
   }
 
@@ -124,7 +120,6 @@ export class Solver {
       const equal = Utils.getRepeated(pairsInColumn);
 
       if (equal.length > 0) {
-        // console.log('Removing in column!', equal, i);
         this.removeSolutionFromNumbers(column, equal);
       }
     }
