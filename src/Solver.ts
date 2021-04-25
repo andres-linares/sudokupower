@@ -2,6 +2,7 @@ import { Cell } from './Cell';
 import cloneDeep from 'lodash.clonedeep';
 import { Board } from './utils/Board';
 import { Logger } from './utils/Logger';
+import { Utils } from './utils/Utils';
 
 export class Solver {
   private cells: Cell[][];
@@ -39,48 +40,39 @@ export class Solver {
   }
 
   private setAnyPossibleValue(): boolean {
-    const possibleValues: number[][][] = [];
-
     for (let i = 0; i < 9; i++) {
-      const possibleValuesInRow: number[][] = [];
-
       for (let j = 0; j < 9; j++) {
         const cell = this.cells[i][j];
-        if (cell.value !== null) {
-          possibleValuesInRow.push([]);
-          continue;
-        }
+        if (cell.value !== null) continue;
 
         const possibleValues = Board.freeInPosition(i, j, this.cells);
-        possibleValuesInRow.push(possibleValues);
+        cell.possibilites = possibleValues;
         if (possibleValues.length > 1) continue;
 
         cell.value = possibleValues[0];
         return true;
       }
-
-      possibleValues.push(possibleValuesInRow);
     }
 
-    return this.solveWithPossibleValues(possibleValues);
+    // return false;
+    return this.solveWithPossibleValues();
   }
 
-  private solveWithPossibleValues(possibleValues: number[][][]): boolean {
-    // Check unique in row
+  private solveWithPossibleValues(): boolean {
     for (let i = 0; i < 9; i++) {
-      const solutionsInRow = possibleValues[i];
-      const solutionsInColumn = possibleValues.map((row) => row[i]);
-      const solutionsInQuadrant = this.getQuadrant(i, possibleValues) as number[][];
+      const cellsInRow = this.cells[i];
+      const cellsInColumn = this.cells.map((row) => row[i]);
+      const cellsInQuadrant = this.getQuadrant(i, this.cells);
 
-      const uniqueSolutionInRow = this.anyUniqueSolution(solutionsInRow);
-      const uniqueSolutionInColumn = this.anyUniqueSolution(solutionsInColumn);
-      const uniqueSolutionInQuadrant = this.anyUniqueSolution(solutionsInQuadrant);
+      const uniqueSolutionInRow = this.anyUniqueSolution(cellsInRow);
+      const uniqueSolutionInColumn = this.anyUniqueSolution(cellsInColumn);
+      const uniqueSolutionInQuadrant = this.anyUniqueSolution(cellsInQuadrant);
 
       let x, y;
       if (uniqueSolutionInRow) {
         x = i;
-        y = solutionsInRow.findIndex((solutions) =>
-          solutions.includes(uniqueSolutionInRow)
+        y = cellsInRow.findIndex((cell) =>
+          cell.possibilites.includes(uniqueSolutionInRow)
         );
 
         this.cells[x][y].value = uniqueSolutionInRow;
@@ -88,16 +80,16 @@ export class Solver {
       }
       if (uniqueSolutionInColumn) {
         y = i;
-        x = solutionsInColumn.findIndex((solutions) =>
-          solutions.includes(uniqueSolutionInColumn)
+        x = cellsInColumn.findIndex((cell) =>
+          cell.possibilites.includes(uniqueSolutionInColumn)
         );
 
         this.cells[x][y].value = uniqueSolutionInColumn;
         return true;
       }
       if (uniqueSolutionInQuadrant) {
-        const foundIndex = solutionsInQuadrant.findIndex((solutions) =>
-          solutions.includes(uniqueSolutionInQuadrant)
+        const foundIndex = cellsInQuadrant.findIndex((cell) =>
+          cell.possibilites.includes(uniqueSolutionInQuadrant)
         );
 
         x = Math.floor(foundIndex / 3) + Math.floor(i / 3) * 3;
@@ -108,24 +100,88 @@ export class Solver {
       }
     }
 
+    return this.removePairs();
+  }
+
+  private removePairs(): boolean {
+    for (let i = 0; i < 9; i++) {
+      const row = this.cells[i];
+      const pairsInRow = row
+        .map((cell) => cell.possibilites)
+        .filter((cell) => cell.length === 2);
+      const equal = Utils.getRepeated(pairsInRow);
+
+      if (equal.length > 0) {
+        this.removeSolutionFromNumbers(row, equal);
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      const column = this.cells.map((row) => row[i]);
+      const pairsInColumn = column
+        .map((cell) => cell.possibilites)
+        .filter((cell) => cell.length === 2);
+      const equal = Utils.getRepeated(pairsInColumn);
+
+      if (equal.length > 0) {
+        // console.log('Removing in column!', equal, i);
+        this.removeSolutionFromNumbers(column, equal);
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      const quadrant = this.getQuadrant(i, this.cells);
+      const pairsInQuadrant = quadrant
+        .map((cell) => cell.possibilites)
+        .filter((cell) => cell.length === 2);
+      const equal = Utils.getRepeated(pairsInQuadrant);
+
+      if (equal.length > 0) {
+        this.removeSolutionFromNumbers(quadrant, equal);
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        const cell = this.cells[i][j];
+
+        if (cell.possibilites.length === 1) {
+          cell.value = cell.possibilites[0];
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
-  private anyUniqueSolution(solutions: number[][]) {
+  private removeSolutionFromNumbers(cells: Cell[], solution: number[][]) {
+    for (const cell of cells) {
+      if (cell.value !== null) continue;
+
+      for (const x of solution) {
+        if (JSON.stringify(x) === JSON.stringify(cell.possibilites)) continue;
+
+        cell.possibilites = cell.possibilites.filter((value) => !x.includes(value));
+      }
+    }
+  }
+
+  private anyUniqueSolution(cells: Cell[]) {
     for (let i = 1; i <= 9; i++) {
-      const solve = solutions.filter((solution) => solution.includes(i));
+      const solve = cells.filter((cell) => cell.possibilites.includes(i));
       if (solve.length === 1) return i;
     }
   }
 
-  private getQuadrant(index: number, values: any) {
+  private getQuadrant(index: number, cells: Cell[][]) {
     const centerRow = Math.floor(index / 3) * 3 + 1;
     const centerColumn = (index % 3) * 3 + 1;
     const quadrant = [];
 
     for (let row = centerRow - 1; row <= centerRow + 1; row++) {
       for (let column = centerColumn - 1; column <= centerColumn + 1; column++) {
-        quadrant.push(values[row][column]);
+        quadrant.push(cells[row][column]);
       }
     }
 
