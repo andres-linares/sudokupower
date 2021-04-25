@@ -18,7 +18,10 @@
     "puzzle"
   ],
   "author": "andres-linares",
-  "license": "ISC",
+  "license": "MIT",
+  "files": [
+    "lib/**/*"
+  ],
   "bugs": {
     "url": "https://github.com/andres-linares/sudokupower/issues"
   },
