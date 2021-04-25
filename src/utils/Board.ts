@@ -1,4 +1,5 @@
 import { Cell } from '../Cell';
+import { Utils } from './Utils';
 
 const ALL_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -26,6 +27,19 @@ export class Board {
     const values = quadrant.map((cell) => cell?.value);
 
     return ALL_NUMBERS.filter((number) => !values.includes(number));
+  }
+
+  static freeInPosition(
+    rowIndex: number,
+    columnIndex: number,
+    cells: Cell[][]
+  ): number[] {
+    const freeInRow = this.freeInRow(rowIndex, cells);
+    const freeInColumn = this.freeInColumn(columnIndex, cells);
+    const freeInQuadrant = this.freeInQuadrant(rowIndex, columnIndex, cells);
+
+    const possibleValues = Utils.intersection(freeInRow, freeInColumn, freeInQuadrant);
+    return possibleValues;
   }
 
   private static cellsInQuadrant(row: number, column: number, cells: Cell[][]): Cell[] {
