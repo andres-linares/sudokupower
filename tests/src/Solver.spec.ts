@@ -1,7 +1,10 @@
 import { Cell } from '../../src/Cell';
-import { arrayToCells } from '../../src/io';
+import { arrayToCells, cellsToArray } from '../../src/io';
 import { Solver } from '../../src/Solver';
 import easyGames from '../fixtures/easy.json';
+import mediumGames from '../fixtures/medium.json';
+import hardGames from '../fixtures/hard.json';
+import expertGames from '../fixtures/expert.json';
 
 describe('cloneDeep', () => {
   it('clones deep the values when clone is true', () => {
@@ -24,6 +27,54 @@ describe('cloneDeep', () => {
 
     if (!firstEmptyCell) return;
     expect(firstEmptyCell.manipulated).toEqual(true);
+  });
+});
+
+it('solves easy games', () => {
+  easyGames.games.forEach((game) => {
+    const theGame = arrayToCells(game.start);
+    const solver = new Solver(theGame, false);
+
+    solver.isSolvable();
+    const finishGame = cellsToArray(theGame);
+
+    expect(finishGame).toEqual(game.finish);
+  });
+});
+
+it('solves medium games', () => {
+  mediumGames.games.forEach((game) => {
+    const theGame = arrayToCells(game.start);
+    const solver = new Solver(theGame, false);
+
+    solver.isSolvable();
+    const finishGame = cellsToArray(theGame);
+
+    expect(finishGame).toEqual(game.finish);
+  });
+});
+
+it('solves hard games', () => {
+  hardGames.games.forEach((game) => {
+    const theGame = arrayToCells(game.start);
+    const solver = new Solver(theGame, false);
+
+    solver.isSolvable();
+    const finishGame = cellsToArray(theGame);
+
+    expect(finishGame).toEqual(game.finish);
+  });
+});
+
+it.skip('solves expert games', () => {
+  expertGames.games.forEach((game) => {
+    const theGame = arrayToCells(game.start);
+    const solver = new Solver(theGame, false);
+
+    solver.isSolvable();
+    const finishGame = cellsToArray(theGame);
+
+    expect(finishGame).toEqual(game.finish);
   });
 });
 
