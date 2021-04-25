@@ -33,3 +33,23 @@ describe('intersection', () => {
     expect(Utils.intersection(array1, array2, array3)).toEqual([]);
   });
 });
+
+describe('duplicates', () => {
+  it('returns only values that are duplicated', () => {
+    const test1 = [
+      [1, 2],
+      [3, 4],
+      [1, 2],
+    ];
+    expect(Utils.getRepeated(test1)).toEqual([[1, 2]]);
+
+    const test2 = [1, 2, 1];
+    expect(Utils.getRepeated(test2)).toEqual([1]);
+
+    const test3 = [1, 2, 1, 2];
+    expect(Utils.getRepeated(test3)).toEqual([1, 2]);
+
+    const test4 = [1, 2, 3, 4];
+    expect(Utils.getRepeated(test4)).toEqual([]);
+  });
+});

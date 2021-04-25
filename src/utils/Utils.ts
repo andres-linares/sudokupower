@@ -10,4 +10,21 @@ export class Utils {
 
     return intersected;
   }
+
+  static getRepeated<T>(array: T[]): T[] {
+    const repeated: T[] = [];
+
+    const stringify = (x: T) => JSON.stringify(x);
+    const areEqual = (x1: T, x2: T) => stringify(x1) === stringify(x2);
+
+    for (const item of array) {
+      const isRepeated = array.filter((x) => areEqual(x, item)).length > 1;
+
+      if (isRepeated && !repeated.find((x) => areEqual(x, item))) {
+        repeated.push(item);
+      }
+    }
+
+    return repeated;
+  }
 }
