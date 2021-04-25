@@ -12,3 +12,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cell class to store value, pencil marks, error status and manipulations.
 - Random class with common functionalities.
 - Utils class with common functionalities.
+- Generator, Validator and Solver classes.
+- IO folder with functions to convert between number arrays and cell objects.
