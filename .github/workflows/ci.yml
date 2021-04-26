@@ -21,10 +21,7 @@ jobs:
         run: yarn install
 
       - name: Run linter
-        run: yarn lint
-
-      - name: Run prettier
-        run: prettier --write --ignore-unknown
+        run: yarn lint && yarn lint:prettier
 
       - name: Run tests
         run: yarn test
