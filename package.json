@@ -8,6 +8,8 @@
     "build": "tsc",
     "test": "jest",
     "coverage": "jest --coverage --collectCoverageFrom=src/**/*.ts",
+    "lint": "eslint src/ tests/",
+    "lint:prettier": "prettier --check .",
     "prepare": "yarn run build && yarn husky install",
     "prepublishOnly": "yarn run test",
     "postversion": "git push && git push --tags"

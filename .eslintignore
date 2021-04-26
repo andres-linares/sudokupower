@@ -2,3 +2,4 @@
 jest.config.js
 commitlint.config.js
 .eslintrc.js
+lib
