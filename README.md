@@ -21,5 +21,5 @@ $ npm i sudokupower
 ## Usage
 
 ```typescript
-import { Board } from 'sudoku-power`;
+import { Board } from 'sudokupower`;
 ```
