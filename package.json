@@ -1,6 +1,6 @@
 {
   "name": "sudokupower",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sudoku generator, solver and player",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,10 +8,9 @@
     "build": "tsc",
     "test": "jest",
     "coverage": "jest --coverage --collectCoverageFrom=src/**/*.ts",
-    "prepare": "yarn run build",
+    "prepare": "yarn run build && yarn husky install",
     "prepublishOnly": "yarn run test",
-    "postversion": "git push && git push --tags",
-    "postinstall": "yarn husky install"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
