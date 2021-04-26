@@ -1,3 +1,25 @@
-# Sudoku Power (sudokupower)
+# Sudoku Power
 
-The **sudokupower** package is a package written in TypeScript that provides functionality to generate different Sudokus from scratch (you can tune the difficulty level), solve Sudokus and play with Sudokus with an expose functionality to set values, pencil marks, help and many other things.
+[![npm version](https://badge.fury.io/js/sudokupower.svg)](https://badge.fury.io/js/sudokupower)
+
+Sudoku generator, solver and interface to play games for both Node and Web.
+
+## Installation
+
+Using yarn:
+
+```shell
+$ yarn add sudokupower
+```
+
+Using npm:
+
+```shell
+$ npm i sudokupower
+```
+
+## Usage
+
+```typescript
+import { Board } from 'sudoku-power`;
+```
