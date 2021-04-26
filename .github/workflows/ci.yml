@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    pull_request:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Install modules
+      run: yarn install
+
+    - name: Run linter
+      run: yarn eslint --cache --fix
+
+    - name: Run prettier
+      run: prettier --write --ignore-unknown
+
+    - name: Run tests
+      run: yarn test
