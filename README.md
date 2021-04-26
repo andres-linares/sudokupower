@@ -24,5 +24,5 @@ $ npm i sudokupower
 ## Usage
 
 ```typescript
-import { Game } from 'sudokupower`;
+import { Game } from 'sudokupower';
 ```
